@@ -6,8 +6,10 @@ services:
   - docker
 
 install:
- - docker build -t lemonade_stand_api .
+ - docker-compose up -d
 
 script:
- - docker run lemonade_stand_api rake test
+ - docker-compose run -e RAILS_ENV=test web rake db:create
+ - docker-compose run -e RAILS_ENV=test web rake db:migrate
+ - docker-compose run -e RAILS_ENV=test web rake test
 
